@@ -48,7 +48,7 @@ pub struct Bigint;
 				Value::custom(Box::new(bigint), span)
 			}).map_err(|err| {
 					LabeledError::new("Expected a string which is parseable as a bigint").with_label(
-						format!("An error occurred parsing this: {}", err), 
+						format!("An error occurred while parsing: {}", err), 
 						call.head
 					)
 				}),

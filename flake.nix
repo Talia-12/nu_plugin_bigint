@@ -86,7 +86,7 @@
 
           cargoLock.lockFile = ./Cargo.lock;
           nativeBuildInputs = with pkgs; [
-            gmp.dev
+            gmp gmp.dev m4
             # gzip
             # installShellFiles
             # makeWrapper
@@ -97,7 +97,7 @@
             # openssh
           ] ++ linuxNativeDeps;
           buildInputs = with pkgs; [
-            gmp m4
+            gmp gmp.dev m4
             # openssl zstd libgit2 libssh2
           ] ++ darwinDeps;
 
