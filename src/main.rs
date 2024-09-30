@@ -1,7 +1,9 @@
 use nu_plugin::{MsgPackSerializer, Plugin, PluginCommand, serve_plugin};
 
 mod commands;
+mod values;
 pub use commands::*;
+pub use values::*;
 
 pub struct BigintPlugin;
 

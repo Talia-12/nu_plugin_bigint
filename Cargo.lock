@@ -1058,6 +1058,8 @@ dependencies = [
  "nu-plugin-test-support",
  "nu-protocol",
  "rug",
+ "serde",
+ "typetag",
 ]
 
 [[package]]
@@ -1442,6 +1444,7 @@ dependencies = [
  "gmp-mpfr-sys",
  "libc",
  "libm",
+ "serde",
 ]
 
 [[package]]

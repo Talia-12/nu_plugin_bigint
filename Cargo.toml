@@ -15,7 +15,9 @@ license = "MIT"
 # nu-protocol = { path = "../nushell/crates/nu-protocol", features = ["plugin"] }
 nu-plugin = "0.97.1"
 nu-protocol = { version = "0.97.1", features = ["plugin"] }
-rug = "1.26.1"
+rug = { version = "1.26.1", features = ["serde"] }
+serde = "1.0.210"
+typetag = "0.2.18"
 
 [dev-dependencies]
 # nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }

@@ -86,6 +86,7 @@
 
           cargoLock.lockFile = ./Cargo.lock;
           nativeBuildInputs = with pkgs; [
+            gmp.dev
             # gzip
             # installShellFiles
             # makeWrapper
@@ -96,6 +97,7 @@
             # openssh
           ] ++ linuxNativeDeps;
           buildInputs = with pkgs; [
+            gmp m4
             # openssl zstd libgit2 libssh2
           ] ++ darwinDeps;
 
@@ -129,6 +131,8 @@
           # Foreign dependencies
           # openssl zstd libgit2 libssh2
           # pkg-config
+          gmp m4
+          gmp.dev
 
           # Additional tools recommended by contributing.md
           cargo-deny

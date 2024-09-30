@@ -1,7 +1,10 @@
-use nu_plugin::{EngineInterface, EvaluatedCall, SimplePluginCommand};
-use nu_protocol::{Category, Example, LabeledError, Signature, SyntaxShape, Value};
+use std::str::FromStr;
 
-use crate::BigintPlugin;
+use nu_plugin::{EngineInterface, EvaluatedCall, SimplePluginCommand};
+use nu_protocol::{Category, Example, LabeledError, Signature, Value};
+use rug::Integer;
+
+use crate::{BigIntValue, BigintPlugin};
 
 pub struct Bigint;
 
@@ -14,26 +17,19 @@ pub struct Bigint;
 
 	fn signature(&self) -> Signature {
 		Signature::build(self.name())
-			.required("name", SyntaxShape::String, "(FIXME) A demo parameter - your name")
-			.switch("shout", "(FIXME) Yell it instead", None)
 			.category(Category::Experimental)
 	}
 
 	fn usage(&self) -> &str {
-		"(FIXME) help text for bigint"
+		"Given a string or number, returns the bigint equivalent of that string."
 	}
 
 	fn examples(&self) -> Vec<Example> {
 		vec![
 			Example {
-				example: "bigint Ellie",
-				description: "Say hello to Ellie",
-				result: Some(Value::test_string("Hello, Ellie. How are you today?")),
-			},
-			Example {
-				example: "bigint --shout Ellie",
-				description: "Shout hello to Ellie",
-				result: Some(Value::test_string("HELLO, ELLIE. HOW ARE YOU TODAY?")),
+				example: "\"64321979132594643297432\" | bigint",
+				description: "Convert a large number represented as a string to a bigint.",
+				result: Some(Value::test_custom_value(Box::new(BigIntValue { integer: Integer::from_str("64321979132594643297432").unwrap() }))),
 			},
 		]
 	}
@@ -43,14 +39,25 @@ pub struct Bigint;
 		_plugin: &BigintPlugin,
 		_engine: &EngineInterface,
 		call: &EvaluatedCall,
-		_input: &Value,
+		input: &Value,
 	) -> Result<Value, LabeledError> {
-		let name: String = call.req(0)?;
-		let mut greeting = format!("Hello, {name}. How are you today?");
-		if call.has_flag("shout")? {
-			greeting = greeting.to_uppercase();
+		let span = input.span();
+
+		match input {
+			Value::String { val, .. } => BigIntValue::from_string(val).map(|bigint| {
+				Value::custom(Box::new(bigint), span)
+			}).map_err(|err| {
+					LabeledError::new("Expected a string which is parseable as a bigint").with_label(
+						format!("An error occurred parsing this: {}", err), 
+						call.head
+					)
+				}),
+			Value::Int { val, .. } => Ok(Value::custom(Box::new(BigIntValue::from_i64(*val)), span)),
+			_ => Err(LabeledError::new("Expected String or Int input from pipeline").with_label(
+				format!("requires String or Int input; got {}", input.get_type()),
+				call.head
+			))
 		}
-		Ok(Value::string(greeting, call.head))
 	}
 }
 
