@@ -70,7 +70,7 @@
     in
     {
       packages = {
-        nu_plugin_bigint = ourRustPlatform.buildRustPackage {
+        nu_plugin_bigint = { lib, ... }: ourRustPlatform.buildRustPackage {
           pname = "nu_plugin_bigint";
           version = "unstable-${self.shortRev or "dirty"}";
 
@@ -120,6 +120,15 @@
           #     --fish <($out/bin/jj util completion fish) \
           #     --zsh <($out/bin/jj util completion zsh)
           # '';
+
+          meta = {
+            description = "A nushell plugin to add BigInteger and Fractional types.";
+            mainProgram = "nu_plugin_bigint";
+            homepage = "https://github.com/Talia-12/nu_plugin_bigint";
+            license = lib.licenses.mit;
+            # maintainers = [];
+          };
+          
         };
         default = self.packages.${system}.nu_plugin_bigint;
       };
