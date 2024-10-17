@@ -1,0 +1,3 @@
+"/home/tyrab/Programming/rust/nu_plugin_bigint/src/values/bigint.rs"
+"/home/tyrab/Programming/rust/nu_plugin_bigint/src/commands/bigint.rs"
+"/home/tyrab/Programming/rust/nu_plugin_bigint/Cargo.toml"

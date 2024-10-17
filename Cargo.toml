@@ -1,6 +1,6 @@
 [package]
 name = "nu_plugin_bigint"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Talia-12 <paradox.m.burgess@gmail.com>"]
 edition = "2021"
 description = "a nushell plugin called bigint"
@@ -13,12 +13,12 @@ license = "MIT"
 # for local development, you can use a path dependency
 # nu-plugin = { path = "../nushell/crates/nu-plugin" }
 # nu-protocol = { path = "../nushell/crates/nu-protocol", features = ["plugin"] }
-nu-plugin = "0.97.1"
-nu-protocol = { version = "0.97.1", features = ["plugin"] }
+nu-plugin = "0.98.0"
+nu-protocol = { version = "0.98.0", features = ["plugin"] }
 rug = { version = "1.26.1", features = ["serde"] }
 serde = "1.0.210"
 typetag = "0.2.18"
 
 [dev-dependencies]
 # nu-plugin-test-support = { path = "../nushell/crates/nu-plugin-test-support" }
-nu-plugin-test-support = { version = "0.97.1" }
+nu-plugin-test-support = { version = "0.98.0" }
